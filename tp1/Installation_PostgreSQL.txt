@@ -1,0 +1,96 @@
+
+=============================== 
+Installer PostgreSQL sur Linux
+=============================== 
+
+Commencez par installer le package, en entrant dans le terminal :
+  sudo apt-get install postgresql
+
+Il faudra confirmer l'installation à un moment en entrant Y (ou O).
+
+En cas de problème pendant l'installation vous pouvez regarder ici :
+  https://doc.ubuntu-fr.org/postgresql
+ou rechercher votre message d'erreur sur internet pour avoir de l'aide.
+
+============================================
+Installer Debian sur Windows via WSL
+============================================
+
+Voir https://learn.microsoft.com/fr-fr/windows/wsl/install
+
+Ouvrez l’invite de commandes PowerShell ou Windows en mode administrateur en cliquant avec le bouton droit et en sélectionnant « Exécuter en tant qu’administrateur »
+entrez la commande :
+
+wsl --install -d Debian 
+
+Puis revenir à Installer PostgreSQL sur Linux
+
+============================================
+Installer Ubuntu dans une machine virtuelle
+============================================
+
+Si votre ordinateur n'a pas de système linux, vous pouvez installer Ubuntu dans
+une machine virtuelle qui pourra être démarrée comme un logiciel normal depuis
+Windows (vous aurez Ubuntu qui fonctionnera "à l'intérieur" de Windows).
+
+Pour cela, il faut d'abord installer le logiciel virtual box (dans windows), 
+disponible ici : 
+  http://download.virtualbox.org/virtualbox/5.1.28/VirtualBox-5.1.28-117968-Win.exe
+
+Il faut également télécharger ubuntu (fichier au format .iso) : 
+  https://ubuntu-fr.org/telechargement?action=dl
+
+Vous pouvez ensuite suivre les instructions ici : 
+  https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle
+pour procéder à l'installation. Pas d'inquiétude lorsqu'il y aura un message 
+indiquant que tous vos fichiers seront supprimés (la machine virtuelle est 
+séparée de votre système windows, elle ne modifiera rien sur votre ordinateur). 
+Il est fortement recommandé de faire également l'installation des additions 
+invités (expliqué dans le lien + haut), pour qu'ubuntu s'exécute plus rapidement.
+
+Une fois qu'ubuntu est installé, vous pouvez ajouter emacs par exemple, en entrant
+dans le terminal d'ubuntu :
+  sudo apt-get install emacs
+
+Commencez par installer le package, en entrant dans le terminal :
+  sudo apt-get install postgresql
+
+Si votre ordinateur n'est pas très puissant, ubuntu peut avoir du mal à fonctionner dans
+windows. Dans ce cas, il faut plutôt faire une installation en dual boot sur une autre 
+partition du disque dur, mais c'est plus compliqué... (se renseigner sur internet).
+
+==================================
+Installer PostegreSQL sous Windows
+==================================
+
+Il est possible d'installer psql sous windows, puis de l'utiliser depuis le terminal
+Windows. Pour cela, commencez par télécharger et installer : 
+  https://www.enterprisedb.com/downloads/postgres-postgresql-downloads#windows
+choisissez la dernière version disponible de psql, et la version de votre système
+windows (32 ou 64 bits). Si vous ne savez pas quelle est la version de votre windows,
+regardez ici :
+  https://support.microsoft.com/fr-fr/help/827218/how-to-determine-whether-a-computer-is-running-a-32-bit-version-or-64
+
+Notez bien le mot de passe de l'utilisateur postgres que vous avez du saisir lors de l'installation.
+   
+
+=================================================================
+Installer PostegreSQL sous Mac
+=================================================================
+Les deux solutions les plus simples :
+- en installant postgresapp, c.f. https://postgresapp.com/documentation/install.html 
+- avec le gestionnaire de paquets homebrew, c.f. https://wiki.postgresql.org/wiki/Homebrew
+
+
+=================================================================
+Installer PostegreSQL sous Windows ou Mac dans un container dédié
+=================================================================
+
+Autre alternative, installer Postgres dans une container dédié sous Windows ou Mac
+(ce qui permet notamment de le désinstaller plus facilement). Vous pouvez vous renseigner
+ici :
+  https://docs.docker.com/kitematic/userguide/
+  
+Attention, ça ne marchera pas si votre système windows est en 32 bits.
+
+

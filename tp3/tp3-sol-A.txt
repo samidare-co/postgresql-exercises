@@ -1,0 +1,187 @@
+SET
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 12
+INSERT 0 8
+INSERT 0 19
+INSERT 0 70
+Question 1.1
+le champ mid est de type "serial primary key", serial : entier à incrémentation automatique
+Question 1.2
+ tid |           nom           | annee |       pays        
+-----+-------------------------+-------+-------------------
+   1 | Coupe du Monde          |  1987 | Nouvelle-Zélande
+   2 | Coupe du Monde          |  1991 | Angleterre
+   3 | Coupe du Monde          |  1995 | Afrique du Sud
+   4 | Coupe du Monde          |  1999 | Pays de Galles
+   5 | Coupe du Monde          |  2003 | Australie
+   6 | Coupe du Monde          |  2007 | France
+   7 | Coupe du Monde          |  2011 | Nouvelle-Zélande
+   8 | Championnat d'Allemagne |  2019 | Allemagne
+(8 rows)
+
+Cela ne fonctione pas car le tournois 7 existe déjà
+Question 1.3 & 1.4
+INSERT 0 1
+ tid |           nom           | annee |       pays        
+-----+-------------------------+-------+-------------------
+   1 | Coupe du Monde          |  1987 | Nouvelle-Zélande
+   2 | Coupe du Monde          |  1991 | Angleterre
+   3 | Coupe du Monde          |  1995 | Afrique du Sud
+   4 | Coupe du Monde          |  1999 | Pays de Galles
+   5 | Coupe du Monde          |  2003 | Australie
+   6 | Coupe du Monde          |  2007 | France
+   7 | Coupe du Monde          |  2011 | Nouvelle-Zélande
+   8 | Championnat d'Allemagne |  2019 | Allemagne
+   9 | Championnat de France   |  2021 | France
+(9 rows)
+
+Question 1.5
+DROP TABLE
+"cannot drop table joueurs because other objects depend on it" => on rajoute cascade au drop
+donc reinjection des joueurs a chaque execution du fichier
+CREATE TABLE
+                                                 Table "projet_grolleau.joueurs"
+     Column      |  Type   | Collation | Nullable |               Default                | Storage  | Stats target | Description 
+-----------------+---------+-----------+----------+--------------------------------------+----------+--------------+-------------
+ jid             | integer |           | not null | nextval('joueurs_jid_seq'::regclass) | plain    |              | 
+ nom             | text    |           | not null |                                      | extended |              | 
+ prenom          | text    |           | not null |                                      | extended |              | 
+ datedenaissance | date    |           | not null |                                      | plain    |              | 
+ nationalite     | text    |           | not null |                                      | extended |              | 
+Indexes:
+    "joueurs_pkey" PRIMARY KEY, btree (jid)
+
+Question 1.6
+INSERT 0 10
+ jid |   nom    |  prenom  | datedenaissance |  nationalite   
+-----+----------+----------+-----------------+----------------
+   1 | Sanchez  | Federico | 1988-10-26      | Argentine
+   2 | Goromaru | Aymuru   | 1986-03-01      | Japon
+   3 | Foley    | Bernard  | 1989-09-08      | Australie
+   4 | Pollard  | Handré  | 1994-03-11      | Afrique du Sud
+   5 | Biggar   | Dan      | 1989-10-16      | Pays de Galles
+   6 | Farrel   | Owen     | 1991-09-24      | Angleterre
+   7 | Michalak | Frederic | 1982-10-16      | France
+   8 | Laidlaw  | Greig    | 1985-10-12      | Ecosse
+   9 | Tommaso  | Allan    | 1993-04-26      | Ecosse
+  10 | Jaziri   | Samy     | 1970-01-30      | France
+(10 rows)
+
+Question 1.7
+Attention, un joueur peut avoir plusieurs équipes
+DROP TABLE
+CREATE TABLE
+Question 1.8
+INSERT 0 11
+ jid | eid 
+-----+-----
+   1 |   4
+   2 |   9
+   3 |   7
+   4 |   6
+   5 |   3
+   6 |   5
+   7 |   2
+   8 |   8
+   9 |  10
+   9 |   8
+   9 |   1
+(11 rows)
+
+Question 1.9
+Question 1.10
+Question 1.11
+look at the name of contrainsts in table matchs
+                                             Table "projet_grolleau.matchs"
+  Column  |  Type   | Collation | Nullable |               Default               | Storage  | Stats target | Description 
+----------+---------+-----------+----------+-------------------------------------+----------+--------------+-------------
+ mid      | integer |           | not null | nextval('matchs_mid_seq'::regclass) | plain    |              | 
+ tournois | integer |           |          |                                     | plain    |              | 
+ gagnant  | integer |           |          |                                     | plain    |              | 
+ perdant  | integer |           |          |                                     | plain    |              | 
+ tour     | text    |           |          |                                     | extended |              | 
+Indexes:
+    "matchs_pkey" PRIMARY KEY, btree (mid)
+Foreign-key constraints:
+    "matchs_gagnant_fkey" FOREIGN KEY (gagnant) REFERENCES equipes(eid)
+    "matchs_perdant_fkey" FOREIGN KEY (perdant) REFERENCES equipes(eid)
+    "matchs_tournois_fkey" FOREIGN KEY (tournois) REFERENCES tournois(tid)
+
+ALTER TABLE
+ALTER TABLE
+avec ALTER TABLE on doit donner un nom a la contrainte
+ALTER TABLE
+ALTER TABLE
+                                             Table "projet_grolleau.matchs"
+  Column  |  Type   | Collation | Nullable |               Default               | Storage  | Stats target | Description 
+----------+---------+-----------+----------+-------------------------------------+----------+--------------+-------------
+ mid      | integer |           | not null | nextval('matchs_mid_seq'::regclass) | plain    |              | 
+ tournois | integer |           |          |                                     | plain    |              | 
+ gagnant  | integer |           |          |                                     | plain    |              | 
+ perdant  | integer |           |          |                                     | plain    |              | 
+ tour     | text    |           |          |                                     | extended |              | 
+Indexes:
+    "matchs_pkey" PRIMARY KEY, btree (mid)
+Foreign-key constraints:
+    "matchs_gagnant_fkey" FOREIGN KEY (gagnant) REFERENCES equipes(eid) ON DELETE CASCADE
+    "matchs_perdant_fkey" FOREIGN KEY (perdant) REFERENCES equipes(eid) ON DELETE CASCADE
+    "matchs_tournois_fkey" FOREIGN KEY (tournois) REFERENCES tournois(tid)
+
+Question 1.12
+                          Table "projet_grolleau.participation"
+ Column |  Type   | Collation | Nullable | Default | Storage | Stats target | Description 
+--------+---------+-----------+----------+---------+---------+--------------+-------------
+ tid    | integer |           | not null |         | plain   |              | 
+ eid    | integer |           | not null |         | plain   |              | 
+Indexes:
+    "participation_pkey" PRIMARY KEY, btree (eid, tid)
+Foreign-key constraints:
+    "participation_eid_fkey" FOREIGN KEY (eid) REFERENCES equipes(eid)
+    "participation_tid_fkey" FOREIGN KEY (tid) REFERENCES tournois(tid)
+
+ALTER TABLE
+ALTER TABLE
+                          Table "projet_grolleau.participation"
+ Column |  Type   | Collation | Nullable | Default | Storage | Stats target | Description 
+--------+---------+-----------+----------+---------+---------+--------------+-------------
+ tid    | integer |           | not null |         | plain   |              | 
+ eid    | integer |           | not null |         | plain   |              | 
+Indexes:
+    "participation_pkey" PRIMARY KEY, btree (eid, tid)
+Foreign-key constraints:
+    "participation_eid_fkey" FOREIGN KEY (eid) REFERENCES equipes(eid) ON DELETE CASCADE
+    "participation_tid_fkey" FOREIGN KEY (tid) REFERENCES tournois(tid)
+
+                          Table "projet_grolleau.joueurequipes"
+ Column |  Type   | Collation | Nullable | Default | Storage | Stats target | Description 
+--------+---------+-----------+----------+---------+---------+--------------+-------------
+ jid    | integer |           | not null |         | plain   |              | 
+ eid    | integer |           | not null |         | plain   |              | 
+Indexes:
+    "joueurequipes_pkey" PRIMARY KEY, btree (jid, eid)
+Foreign-key constraints:
+    "joueurequipes_eid_fkey" FOREIGN KEY (eid) REFERENCES equipes(eid)
+    "joueurequipes_jid_fkey" FOREIGN KEY (jid) REFERENCES joueurs(jid)
+
+ALTER TABLE
+ALTER TABLE
+                          Table "projet_grolleau.joueurequipes"
+ Column |  Type   | Collation | Nullable | Default | Storage | Stats target | Description 
+--------+---------+-----------+----------+---------+---------+--------------+-------------
+ jid    | integer |           | not null |         | plain   |              | 
+ eid    | integer |           | not null |         | plain   |              | 
+Indexes:
+    "joueurequipes_pkey" PRIMARY KEY, btree (jid, eid)
+Foreign-key constraints:
+    "joueurequipes_eid_fkey" FOREIGN KEY (eid) REFERENCES equipes(eid) ON DELETE CASCADE
+    "joueurequipes_jid_fkey" FOREIGN KEY (jid) REFERENCES joueurs(jid)
+
+Question 1.13
+DELETE 1
